@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpaper Zone</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Wallpaper Zone</h1>
+    </header>
+
+    <section class="upload-section">
+        <h2>Upload Your Image / Video</h2>
+        <form action="upload.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="fileToUpload" accept="image/*,video/*" required>
+            <button type="submit" name="submit">Upload</button>
+        </form>
+    </section>
+
+    <section class="gallery">
+        <h2>Uploaded Files</h2>
+        <div class="files">
+            <?php
+            $dir = "uploads/";
+            $files = scandir($dir);
+            foreach($files as $file){
+                if($file != "." && $file != ".."){
+                    $ext = pathinfo($file, PATHINFO_EXTENSION);
+                    if(in_array($ext, ['jpg','jpeg','png','gif'])){
+                        echo "<img src='uploads/$file' alt='$file' class='thumb'>";
+                    } elseif(in_array($ext, ['mp4','webm','ogg'])){
+                        echo "<video controls class='video-thumb'><source src='uploads/$file' type='video/$ext'></video>";
+                    }
+                }
+            }
+            ?>
+        </div>
+    </section>
+</body>
+</html>
