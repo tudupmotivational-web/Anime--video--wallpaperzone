@@ -1,0 +1,9 @@
+wallpaper-zone/
+│
+├── index.html           <-- Home page
+├── upload.php           <-- File upload handler
+├── uploads/             <-- Uploaded images & videos folder (writeable)
+├── css/
+│   └── style.css        <-- Basic styling
+└── js/
+    └── script.js        <-- Optional JS (if needed)
