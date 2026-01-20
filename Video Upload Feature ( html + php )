@@ -1,0 +1,42 @@
+<!-- video_upload.html --><!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Upload | Anime WallpaperZone</title>
+  <style>
+    body{font-family:Arial;background:#111;color:#fff}
+    .box{max-width:400px;margin:50px auto;padding:20px;background:#1c1c1c;border-radius:10px}
+    input,button{width:100%;margin-top:10px;padding:10px}
+    button{background:#ff0055;color:#fff;border:none}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Upload Anime Video</h2>
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+      <input type="text" name="title" placeholder="Video Title" required>
+      <input type="file" name="video" accept="video/*" required>
+      <button type="submit">Upload Video</button>
+    </form>
+  </div>
+</body>
+</html><?php
+// upload.php
+if(isset($_FILES['video'])){
+  $title = $_POST['title'];
+  $videoName = $_FILES['video']['name'];
+  $tmp = $_FILES['video']['tmp_name'];
+  $folder = "videos/";
+
+  if(!file_exists($folder)){
+    mkdir($folder,0777,true);
+  }
+
+  $path = $folder.time()."_".$videoName;
+
+  if(move_uploaded_file($tmp,$path)){
+    echo "Video Uploaded Successfully";
+  } else {
+    echo "Upload Failed";
+  }
+}
+?>
